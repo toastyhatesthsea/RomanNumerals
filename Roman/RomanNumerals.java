@@ -34,22 +34,45 @@ public class RomanNumerals
         } else if (numeral.length() > 0)
         {
             String firstNumeral;
+            boolean isValid = true;
 
-            for (int i = 0; i < numeral.length(); i++)
+            for (int i = 0; i < numeral.length() && isValid; i++)
             {
-                String secondNumeral = numeral.substring(i, i + 1);
-                if (i + 1 < numeral.length())
+                firstNumeral = numeral.substring(i, i + 1);
+                boolean empty = values.add(firstNumeral);
+
+                if (!empty) //Has numeral of D, L or V already
                 {
-                    firstNumeral = numeral.substring(i + 1, i + 2);
-                } else
+                    isValid = false;
+                } else if (i + 1 < numeral.length())
                 {
+                    String secondNumeral = numeral.substring(i + 1, i + 2);
+
+                    boolean isLarger = isSmaller(secondNumeral, firstNumeral);
+
+                    if (isLarger)
+                    {
+                        isValid = false;
+                    }
+                    else
+                    {
+
+                    }
 
                 }
+                 else
+                {
+                    answer += numerals.get(firstNumeral);
+                }
+            }
+            if (!isValid)
+            {
+                return 0;
             }
         }
         else
         {
-            return answer;
+            return 0;
         }
 
     }
@@ -58,7 +81,7 @@ public class RomanNumerals
     {
         int value = numerals.get(numeralOne).compareTo(numerals.get(numeralTwo));
 
-        if (value == 0 || value > 0)
+        if (value > 0)
         {
             return false;
         }
