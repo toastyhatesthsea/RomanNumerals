@@ -48,15 +48,15 @@ public class RomanNumerals
                 {
                     String secondNumeral = numeral.substring(i + 1, i + 2);
 
-                    boolean isLarger = isSmaller(secondNumeral, firstNumeral);
+                    boolean isSmaller = isSmaller(secondNumeral, firstNumeral);
 
-                    if (isLarger)
+                    if (!isSmaller)
                     {
                         isValid = false;
                     }
                     else
                     {
-
+                        //Maybe use a compare to function here instead
                     }
 
                 }
