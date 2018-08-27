@@ -9,6 +9,7 @@ public class RomanNumerals
     public HashMap<String, Integer> numerals;
     public HashMap<String, Integer> beforeNumerals;
     public HashSet<String> values;  //A hashset for making sure D, L, and V can each only appear once.
+    public int total;
 
 
     public RomanNumerals()
@@ -23,6 +24,13 @@ public class RomanNumerals
         numerals.put("X", 10);
         numerals.put("I", 1);
         numerals.put("D", 500);
+
+        numerals.put("IX", 9);
+        numerals.put("IV", 4);
+        numerals.put("XL", 40);
+        numerals.put("XC", 90);
+        numerals.put("CD", 400);
+        numerals.put("CM", 900);
     }
 
     public int convert(String numeral)
@@ -48,11 +56,19 @@ public class RomanNumerals
                 {
                     String secondNumeral = numeral.substring(i + 1, i + 2);
 
-                    boolean isSmaller = isSmaller(secondNumeral, firstNumeral);
+                    int compareValue = Integer.valueOf(secondNumeral).compareTo(Integer.valueOf(firstNumeral));
 
-                    if (!isSmaller)
+                    if (compareValue > 0) //checks if second value is greater
                     {
-                        isValid = false;
+                        Integer combinedValue = numerals.get(firstNumeral.concat(secondNumeral));
+                        if (combinedValue != null)
+                        {
+                            total += combinedValue;
+                        }
+                        else //second value cannot be greater than first
+                        {
+                            isValid = false;
+                        }
                     }
                     else
                     {
