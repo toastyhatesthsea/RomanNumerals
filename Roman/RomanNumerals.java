@@ -81,10 +81,17 @@ public class RomanNumerals
                     }
                     else if(compareValue == 0) //Must check for smaller denominations here
                     {
-                        largest = firstNumeral;
-                        total += numerals.get(firstNumeral);
-                        total += numerals.get(secondNumeral);
+                        int firstValue = numerals.get(firstNumeral);
+
+                        if (largestValue == 0)
+                        {
+                            largestValue = firstValue;
+                        } else if (firstValue > largestValue)
+                        {
+                            isValid = false;
+                        }
                         i++;
+
                     }
                     else
                     {
