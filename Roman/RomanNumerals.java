@@ -41,6 +41,7 @@ public class RomanNumerals
             return numerals.get(numeral);
         } else if (numeral.length() > 0)
         {
+            String largest = numeral.substring(0, 1);
             String firstNumeral;
             boolean isValid = true;
 
@@ -63,6 +64,7 @@ public class RomanNumerals
                         Integer combinedValue = numerals.get(firstNumeral.concat(secondNumeral));
                         if (combinedValue != null)
                         {
+                            largest = secondNumeral;
                             total += combinedValue;
                             i++;
                         }
@@ -71,15 +73,20 @@ public class RomanNumerals
                             isValid = false;
                         }
                     }
-                    else if(compareValue == 0)
+                    else if(compareValue == 0) //Must check for smaller denominations here
                     {
+                        largest = firstNumeral;
                         total += numerals.get(firstNumeral);
                         total += numerals.get(secondNumeral);
                         i++;
                     }
+                    else
+                    {
+                        total += numerals.get(firstNumeral);
+                    }
 
                 }
-                 else
+                 else //end of the string
                 {
                     answer += numerals.get(firstNumeral);
                 }
@@ -110,9 +117,22 @@ public class RomanNumerals
         }
     }
 
+    /**
+     * Returns -1 if it is not a valid roman numeral string
+     * @param numerals
+     * @return
+     */
     public int checkSmallerDenominations(String numerals)
     {
+        for(int i=0; i<numerals.length(); i++)
+        {
+            String current = numerals.substring(i, i + 1);
 
+            if (i + 1 < numerals.length())
+            {
+                String nextNumeral = numerals.substring(i + 1, i + 2);
+            }
+        }
     }
 
 }
