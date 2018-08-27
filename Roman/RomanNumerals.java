@@ -41,7 +41,7 @@ public class RomanNumerals
             return numerals.get(numeral);
         } else if (numeral.length() > 0)
         {
-            String largest = numeral.substring(0, 1);
+            int largestValue = 0;
             String firstNumeral;
             boolean isValid = true;
 
@@ -64,7 +64,13 @@ public class RomanNumerals
                         Integer combinedValue = numerals.get(firstNumeral.concat(secondNumeral));
                         if (combinedValue != null)
                         {
-                            largest = secondNumeral;
+                            if (largestValue == 0)//checks to make sure not exceeded by smaller denominations
+                            {
+                                largestValue = combinedValue;
+                            } else if (combinedValue > largestValue)
+                            {
+                                isValid = false;
+                            }
                             total += combinedValue;
                             i++;
                         }
