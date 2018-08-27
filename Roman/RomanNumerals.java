@@ -64,15 +64,18 @@ public class RomanNumerals
                         if (combinedValue != null)
                         {
                             total += combinedValue;
+                            i++;
                         }
                         else //second value cannot be greater than first
                         {
                             isValid = false;
                         }
                     }
-                    else
+                    else if(compareValue == 0)
                     {
-                        //Maybe use a compare to function here instead
+                        total += numerals.get(firstNumeral);
+                        total += numerals.get(secondNumeral);
+                        i++;
                     }
 
                 }
@@ -105,6 +108,11 @@ public class RomanNumerals
         {
             return true;
         }
+    }
+
+    public int checkSmallerDenominations(String numerals)
+    {
+
     }
 
 }
