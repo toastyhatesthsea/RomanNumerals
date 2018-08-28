@@ -8,14 +8,13 @@ public class RomanNumerals
 
     public HashMap<String, Integer> numerals;
     public HashMap<String, Integer> beforeNumerals;
-    public HashSet<String> values;  //A hashset for making sure D, L, and V can each only appear once.
+    public HashMap<String, Integer> values;  //A hashset for making sure D, L, and V can each only appear once.
     public int total;
 
 
     public RomanNumerals()
     {
         numerals = new HashMap<>();
-        values = new HashSet<>();
 
         numerals.put("V", 5);
         numerals.put("M", 1000);
@@ -35,6 +34,7 @@ public class RomanNumerals
 
     public int convert(String numeral)
     {
+        values = new HashMap<>();
         int answer = 0;
         if (numeral.length() == 1)
         {
@@ -48,7 +48,14 @@ public class RomanNumerals
             for (int i = 0; i < numeral.length() && isValid; i++)
             {
                 firstNumeral = numeral.substring(i, i + 1);
-                boolean empty = values.add(firstNumeral);
+
+                if (!values.containsKey(firstNumeral))
+                {
+                    values.put(firstNumeral, 1);
+                } else
+                {
+                    values.put(firstNumeral, values.get(firstNumeral) + 1);
+                }
 
                 if (!empty) //Has numeral of D, L or V already
                 {
@@ -73,13 +80,11 @@ public class RomanNumerals
                             }
                             total += combinedValue;
                             i++;
-                        }
-                        else //second value cannot be greater than first
+                        } else //second value cannot be greater than first
                         {
                             isValid = false;
                         }
-                    }
-                    else if(compareValue == 0) //Must check for smaller denominations here
+                    } else if (compareValue == 0) //Must check for smaller denominations here
                     {
                         int firstValue = numerals.get(firstNumeral);
 
@@ -92,14 +97,12 @@ public class RomanNumerals
                         }
                         i++;
 
-                    }
-                    else
+                    } else
                     {
                         total += numerals.get(firstNumeral);
                     }
 
-                }
-                 else //end of the string
+                } else //end of the string
                 {
                     answer += numerals.get(firstNumeral);
                 }
@@ -131,20 +134,80 @@ public class RomanNumerals
     }
 
     /**
-     * Returns -1 if it is not a valid roman numeral string
+     * Returns an array, where the first value is the total value added and the second is the array index where the values are no longer equal.
+     * Will return -1 as the index if any of the numerals are larger than the largest value or
      * @param numerals
      * @return
      */
-    public int checkSmallerDenominations(String numerals)
+    public int[] checkSmallerDenominations(String numerals, int largestValue)
     {
+        int[] answer = new int[2];
+
         for(int i=0; i<numerals.length(); i++)
         {
             String current = numerals.substring(i, i + 1);
 
+            int valueOfNumeral = this.numerals.get(current);
+
+            if (valueOfNumeral > largestValue)
+            {
+                answer[0] = 0;
+                answer[1] = -1;
+                return answer;
+            }
+
             if (i + 1 < numerals.length())
             {
                 String nextNumeral = numerals.substring(i + 1, i + 2);
+                int valueOfSecondNumeral = this.numerals.get(nextNumeral);
+
+
             }
+        }
+        return null;
+    }
+
+    public boolean checkForSmallerDenominations()
+    {
+        Integer vValue = values.get("V");
+
+        if (vValue != null && vValue > 1)
+        {
+            return false;
+        }
+
+        Integer iValue = values.get("I");
+
+        if (iValue != null && iValue > 10)
+        {
+            return false;
+        }
+
+        Integer xValue = values.get("X");
+
+        if (xValue != null && xValue > 5)
+        {
+            return false;
+        }
+
+        Integer lValue = values.get("L");
+
+        if (lValue != null && lValue > 2)
+        {
+            return false;
+        }
+
+        Integer cValue = values.get("C");
+
+        if (cValue != null && cValue > 5)
+        {
+            return false;
+        }
+
+        Integer dValue = values.get("D");
+        if (dValue != null && dValue > 2)
+        {
+            return false;
         }
     }
 
