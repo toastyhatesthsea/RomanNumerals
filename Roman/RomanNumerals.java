@@ -57,7 +57,9 @@ public class RomanNumerals
                     values.put(firstNumeral, values.get(firstNumeral) + 1);
                 }
 
-                if (!empty) //Has numeral of D, L or V already
+                boolean smallerDenominations = checkForSmallerDenominations();
+
+                if (!smallerDenominations) //Has numeral of D, L or V already or smaller denominations exceeds greater denominations
                 {
                     isValid = false;
                 } else if (i + 1 < numeral.length())
@@ -95,6 +97,7 @@ public class RomanNumerals
                         {
                             isValid = false;
                         }
+                        total += firstValue * 2;
                         i++;
 
                     } else
@@ -170,35 +173,30 @@ public class RomanNumerals
     public boolean checkForSmallerDenominations()
     {
         Integer vValue = values.get("V");
-
         if (vValue != null && vValue > 1)
         {
             return false;
         }
 
         Integer iValue = values.get("I");
-
         if (iValue != null && iValue > 10)
         {
             return false;
         }
 
         Integer xValue = values.get("X");
-
         if (xValue != null && xValue > 5)
         {
             return false;
         }
 
         Integer lValue = values.get("L");
-
         if (lValue != null && lValue > 2)
         {
             return false;
         }
 
         Integer cValue = values.get("C");
-
         if (cValue != null && cValue > 5)
         {
             return false;
@@ -209,6 +207,8 @@ public class RomanNumerals
         {
             return false;
         }
+
+        return true;
     }
 
 }
