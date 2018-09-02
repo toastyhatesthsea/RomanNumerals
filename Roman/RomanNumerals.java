@@ -1,7 +1,6 @@
 package Roman;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class RomanNumerals
 {
@@ -9,8 +8,6 @@ public class RomanNumerals
     public HashMap<String, Integer> numerals;
     public HashMap<String, Integer> beforeNumerals;
     public HashMap<String, Integer> values;  //A hashset for making sure D, L, and V can each only appear once.
-    public int total;
-
 
     public RomanNumerals()
     {
@@ -66,7 +63,7 @@ public class RomanNumerals
                 {
                     String secondNumeral = numeral.substring(i + 1, i + 2);
 
-                    int compareValue = Integer.valueOf(secondNumeral).compareTo(Integer.valueOf(firstNumeral));
+                    int compareValue = numerals.get(secondNumeral).compareTo(numerals.get(firstNumeral));
 
                     if (compareValue > 0) //checks if second value is greater
                     {
@@ -80,7 +77,7 @@ public class RomanNumerals
                             {
                                 isValid = false;
                             }
-                            total += combinedValue;
+                            answer += combinedValue;
                             i++;
                         } else //second value cannot be greater than first
                         {
@@ -90,6 +87,8 @@ public class RomanNumerals
                     {
                         int firstValue = numerals.get(firstNumeral);
 
+                        isValid = largestValue(firstValue, largestValue, isValid);
+
                         if (largestValue == 0)
                         {
                             largestValue = firstValue;
@@ -97,17 +96,35 @@ public class RomanNumerals
                         {
                             isValid = false;
                         }
-                        total += firstValue * 2;
-                        i++;
+                        answer += firstValue;
 
                     } else
                     {
-                        total += numerals.get(firstNumeral);
+                        int value = numerals.get(firstNumeral);
+
+                        if (largestValue == 0)
+                        {
+                            largestValue = value;
+                        } else if (value > largestValue)
+                        {
+                            isValid = false;
+                        }
+                        answer += value;
+
                     }
 
                 } else //end of the string
                 {
-                    answer += numerals.get(firstNumeral);
+                    int value = numerals.get(firstNumeral);
+
+                    if (largestValue == 0)
+                    {
+                        largestValue = value;
+                    } else if (value > largestValue)
+                    {
+                        isValid = false;
+                    }
+                    answer += value;
                 }
             }
             if (!isValid)
@@ -119,7 +136,7 @@ public class RomanNumerals
         {
             return 0;
         }
-
+        return answer;
     }
 
     public boolean isSmaller(String numeralOne, String numeralTwo)
@@ -136,8 +153,20 @@ public class RomanNumerals
         }
     }
 
+    private boolean largestValue(int aValue, int largerValue, boolean isValid)
+    {
+        if (largerValue == 0)
+        {
+            largerValue = aValue;
+        } else if (aValue > largerValue)
+        {
+            isValid = false;
+        }
+        return isValid;
+    }
+
     /**
-     * Returns an array, where the first value is the total value added and the second is the array index where the values are no longer equal.
+     * Returns an array, where the first value is the answer value added and the second is the array index where the values are no longer equal.
      * Will return -1 as the index if any of the numerals are larger than the largest value or
      * @param numerals
      * @return
@@ -221,6 +250,10 @@ class RomanTesters{
         RomanNumerals roman = new RomanNumerals();
 
         boolean value = roman.isSmaller("X", "V");
+
+        //int total = roman.convert("XIIIIII");
+
+        int total2 = roman.convert("XIX");
     }
 }
 
