@@ -77,6 +77,10 @@ public class RomanNumerals
                             {
                                 isValid = false;
                             }
+                            else
+                            {
+                                largestValue = combinedValue;
+                            }
                             answer += combinedValue;
                             i++;
                         } else //second value cannot be greater than first
@@ -94,6 +98,10 @@ public class RomanNumerals
                         {
                             isValid = false;
                         }
+                        else
+                        {
+                            largestValue = firstValue;
+                        }
                         answer += firstValue;
 
                     } else
@@ -106,6 +114,10 @@ public class RomanNumerals
                         } else if (value > largestValue)
                         {
                             isValid = false;
+                        }
+                        else
+                        {
+                            largestValue = value;
                         }
                         answer += value;
 
@@ -121,6 +133,10 @@ public class RomanNumerals
                     } else if (value > largestValue)
                     {
                         isValid = false;
+                    }
+                    else
+                    {
+                        largestValue = value;
                     }
                     answer += value;
                 }
@@ -251,7 +267,7 @@ class RomanTesters{
 
         //int total = roman.convert("XIIIIII");
 
-        int total2 = roman.convert("XXXIXX"); //<--Should fail
+        int total2 = roman.convert("MCXXIXCI"); //<--Should fail
 
         //Add code to check for smaller denominations
     }
