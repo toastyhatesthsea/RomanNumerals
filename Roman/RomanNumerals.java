@@ -87,8 +87,6 @@ public class RomanNumerals
                     {
                         int firstValue = numerals.get(firstNumeral);
 
-                        isValid = largestValue(firstValue, largestValue, isValid);
-
                         if (largestValue == 0)
                         {
                             largestValue = firstValue;
@@ -208,31 +206,31 @@ public class RomanNumerals
         }
 
         Integer iValue = values.get("I");
-        if (iValue != null && iValue > 10)
+        if (iValue != null && iValue >= 10)
         {
             return false;
         }
 
         Integer xValue = values.get("X");
-        if (xValue != null && xValue > 5)
+        if (xValue != null && xValue >= 5)
         {
             return false;
         }
 
         Integer lValue = values.get("L");
-        if (lValue != null && lValue > 2)
+        if (lValue != null && lValue > 1)
         {
             return false;
         }
 
         Integer cValue = values.get("C");
-        if (cValue != null && cValue > 5)
+        if (cValue != null && cValue >= 5)
         {
             return false;
         }
 
         Integer dValue = values.get("D");
-        if (dValue != null && dValue > 2)
+        if (dValue != null && dValue > 1)
         {
             return false;
         }
@@ -253,7 +251,9 @@ class RomanTesters{
 
         //int total = roman.convert("XIIIIII");
 
-        int total2 = roman.convert("XIX");
+        int total2 = roman.convert("XXXIXX"); //<--Should fail
+
+        //Add code to check for smaller denominations
     }
 }
 
