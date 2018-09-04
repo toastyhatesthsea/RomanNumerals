@@ -30,23 +30,6 @@ public class Solution
 
     public int romanToInt(String numeral)
     {
-        numerals = new HashMap<>();
-
-        numerals.put("V", 5);
-        numerals.put("M", 1000);
-        numerals.put("C", 100);
-        numerals.put("L", 50);
-        numerals.put("X", 10);
-        numerals.put("I", 1);
-        numerals.put("D", 500);
-
-        numerals.put("IX", 9);
-        numerals.put("IV", 4);
-        numerals.put("XL", 40);
-        numerals.put("XC", 90);
-        numerals.put("CD", 400);
-        numerals.put("CM", 900);
-        values = new HashMap<>();
         int answer = 0;
         if (numeral.length() == 1)
         {
@@ -174,66 +157,11 @@ public class Solution
         return answer;
     }
 
-    public boolean isSmaller(String numeralOne, String numeralTwo)
-    {
-        int value = numerals.get(numeralOne).compareTo(numerals.get(numeralTwo));
-
-        if (value > 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    private boolean largestValue(int aValue, int largerValue, boolean isValid)
-    {
-        if (largerValue == 0)
-        {
-            largerValue = aValue;
-        } else if (aValue > largerValue)
-        {
-            isValid = false;
-        }
-        return isValid;
-    }
-
     /**
-     * Returns an array, where the first value is the answer value added and the second is the array index where the values are no longer equal.
-     * Will return -1 as the index if any of the numerals are larger than the largest value or
-     * @param numerals
-     * @return
+     * Checks to make sure no roman numeral exceeds the limit rules, such as 'No more than one V in String'
+     * @param aNumeral String
+     * @return boolean
      */
-    public int[] checkSmallerDenominations(String numerals, int largestValue)
-    {
-        int[] answer = new int[2];
-
-        for(int i=0; i<numerals.length(); i++)
-        {
-            String current = numerals.substring(i, i + 1);
-
-            int valueOfNumeral = this.numerals.get(current);
-
-            if (valueOfNumeral > largestValue)
-            {
-                answer[0] = 0;
-                answer[1] = -1;
-                return answer;
-            }
-
-            if (i + 1 < numerals.length())
-            {
-                String nextNumeral = numerals.substring(i + 1, i + 2);
-                int valueOfSecondNumeral = this.numerals.get(nextNumeral);
-
-
-            }
-        }
-        return null;
-    }
-
     public boolean checkForSmallerDenominations(String aNumeral)
     {
         if (aNumeral.equals("V"))
