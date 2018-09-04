@@ -2,13 +2,13 @@ package Roman;
 
 import java.util.HashMap;
 
-public class Solution
+public class RomanNumerals
 {
 
     public HashMap<String, Integer> numerals;
     public HashMap<String, Integer> values;  //A hashset for making sure D, L, and V can each only appear once.
 
-    public Solution()
+    public RomanNumerals()
     {
         numerals = new HashMap<>();
 
@@ -234,7 +234,7 @@ class RomanTesters{
 
     public static void main(String[] agsgs)
     {
-        Solution roman = new Solution();
+        RomanNumerals roman = new RomanNumerals();
 
         //boolean value = roman.isSmaller("X", "V");
 
