@@ -290,8 +290,10 @@ public class Solution
             }
             return true;
 
-        }
-        else
+        } else if (aNumeral.equals("M"))
+        {
+            return true;
+        } else
         {
             return false;
         }
@@ -310,7 +312,7 @@ class RomanTesters{
 
         //int total = roman.romanToInt("XIIIIII");
 
-        int total2 = roman.romanToInt("XXXXXX"); //<--Should fail
+        int total2 = roman.romanToInt("MCMXCIV"); //<--Should fail
 
         //Add code to check for smaller denominations
     }
