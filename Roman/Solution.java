@@ -64,7 +64,16 @@ public class Solution
 
                 if (canAdd)
                 {
-                    values.put(firstNumeral, values.getOrDefault(firstNumeral + 1, 1));
+                    int valueToAdd = values.getOrDefault(firstNumeral, 0);
+
+                    if (valueToAdd == 0)
+                    {
+                        values.put(firstNumeral, 1);
+                    }
+                    else
+                    {
+                        values.put(firstNumeral, valueToAdd + 1);
+                    }
 
                     if (i + 1 < numeral.length())
                     {
@@ -284,7 +293,7 @@ public class Solution
         }
         else
         {
-            return true;
+            return false;
         }
     }
 
@@ -301,7 +310,7 @@ class RomanTesters{
 
         //int total = roman.romanToInt("XIIIIII");
 
-        int total2 = roman.romanToInt("CMMCXXIXVI"); //<--Should fail
+        int total2 = roman.romanToInt("XXXXXX"); //<--Should fail
 
         //Add code to check for smaller denominations
     }
